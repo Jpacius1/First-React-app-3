@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 
-function Sidebar({ addBook }) {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+interface SideBarProps {
+  addBook: (book: { title: string; author: string }) => void;
+}
+
+function Sidebar({ addBook }: SideBarProps) {
+  const [title, setTitle] = useState<string>("");
+  const [author, setAuthor] = useState<string>("");
 
   const handleAdd = () => {
     if (title && author) {

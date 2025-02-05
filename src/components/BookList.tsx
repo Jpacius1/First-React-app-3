@@ -1,7 +1,12 @@
 import React from "react";
 import BookCard from "./BookCard";
+import { Book } from "../booksData";
 
-function BookList({ books }) {
+interface BookListProps {
+  books: Book[];
+}
+
+function BookList({ books }: BookListProps) {
   return (
     <div style={{ padding: "10px", flex: 1 }}>
       <h3>Book List</h3>

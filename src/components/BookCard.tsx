@@ -1,6 +1,11 @@
 import React from "react";
+import { Book } from "../booksData";
 
-function BookCard ({ book }) {
+interface BookCardProps {
+  book: Book;
+}
+
+function BookCard ({ book }: BookCardProps) {
   return (
     <div style={{ border: "1px solid gray", padding: "10px", margin: "10px 0" }}>
       <h4>{book.title}</h4>

@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+ "compilerOptions": {
+  "jsx": "react-jsx", // Enables JSX syntax (React 17+),
+ "target": "ES6", // Target modern JavaScript
+ "module": "ESNext", // Use ESNext modules for React imports",
+ "moduleResolution": "node",
+ "allowJs": true, // Allows JavaScript files"
+ "esModuleInterop": true, // Enables default import compatibility
+ "strict": true, // Enables strict type-checking options
+ "skipLibCheck": true // Skip type checking of declaration files
+ },
+}
