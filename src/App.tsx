@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Sidebar from "./SideBar";
+import Sidebar from "./components/Sidebar";
 import BookList from "./components/BookList";
+import BookForm from "./BookForm";
 import { Book } from "./booksData";
 
 const intialBooks: Book[] = [
@@ -11,37 +12,39 @@ const intialBooks: Book[] = [
 
 function App() {
   const [books, setBooks] = useState<Book[]>(intialBooks);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-  // Create
-    const addBook = () => {
-      const newBook = {
-        id: books.length + 1,
-        title: "New Book",
-        author: "Unknown Author",
-        featured: false, 
-      };
-      setBooks([...books, newBook]);
+  // Create or Update a book
+    const saveBook = (book: Book) => {
+      if (book.id) {
+        // Update existing book
+        setBooks(books.map((b) => (b.id ? book : b)));
+      } else {
+        // Create new book
+        const newBook = { ...book, id: books.length + 1 };
+        setBooks([...books, newBook]);
+      }
+      setSelectedBook(null); // Reset form
     };
-  
-    // Delete
+
+    // Delete Book
     const deleteBook = (id: number) => {
       setBooks(books.filter((book) => book.id !== id));
     };
-  
-    // Update (Toggle "Featured" status)
-    const toggleFeatured = (id: number) => {
-      setBooks(
-       books.map((book) =>
-         book.id === id ? { ...book, featured: !book.featured } : book
-        )
-      );
-    };
+
+    // Open Edit Form
+    const editBook = (book: Book) => {
+      setSelectedBook(book);
+    }
   
     return (
       <div style={{ display: "flex", padding: "20px" }}>
-        <Sidebar addBook={addBook} />
-        <BookList books={books} deleteBook={deleteBook} toggleFeatured={toggleFeatured} />
+        <Sidebar />
+        <div style={{ flex: 1}}>
+          <BookForm saveBook={saveBook} selectedBook={selectedBook} />
+        <BookList books={books} deleteBook={deleteBook} editBook={editBook} />
       </div>
+    </div>
     );
   }
   

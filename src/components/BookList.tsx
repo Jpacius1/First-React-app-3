@@ -5,24 +5,22 @@ import { Book } from "../booksData";
 interface BookListProps {
   books: Book[];
   deleteBook: (id: number) => void;
-  toggleFeatured: (id: number) => void;
+  editBook: (book: Book) => void;
 }
 
-function BookList({ books, deleteBook, toggleFeatured }: BookListProps) {
+function BookList({ books, deleteBook, editBook }: BookListProps) {
   return (
-    <div style={{ padding: "10px", flex: 1 }}>
+    <div>
       <h3>Book List</h3>
-      <div>
        {books.map((book) => (
           <BookCard 
           key={book.id} 
           book={book} 
           deleteBook={deleteBook}
-          toggleFeatured={toggleFeatured}
+          editBook={editBook}
           />
         ))}
       </div>
-    </div>
   );
 }
 
