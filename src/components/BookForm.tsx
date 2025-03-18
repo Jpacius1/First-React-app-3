@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Book } from "../booksData";
+import { Book } from "../booksData"
 
 interface BookFormProps {
     saveBook: (book: Book) => void;
@@ -25,12 +25,20 @@ const BookForm: React.FC<BookFormProps> = ({ saveBook, selectedBook }) => {
 
      const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        saveBook({ id: selectedBook?.id || 0, title, author });
+        saveBook({
+            id: selectedBook ? selectedBook.id : Date.now(),
+            title,
+            author,
+            featured: false
+        });
+        setTitle(""); // Clear form after submission
+        setAuthor("");
      };
 
      return (
         <form onSubmit={handleSubmit} style={{marginBottom: "20px" }}>
             <h3>{selectedBook ? "Edit Book" : "Add a New Book"} </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "300px" }}>
             <input
             type="text"
             placeholder="Title"
@@ -45,6 +53,8 @@ const BookForm: React.FC<BookFormProps> = ({ saveBook, selectedBook }) => {
             onChange={(e) => setAuthor(e.target.value)}
             required
             /> 
+            <button type="submit">{selectedBook ? "Update Book" : "Add Book"}</button>
+            </div>
         </form>
      );
    }

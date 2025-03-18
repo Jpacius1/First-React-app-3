@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import BookList from "./components/BookList";
-import BookForm from "./BookForm";
+import BookForm from "./components/BookForm";
 import { Book } from "./booksData";
 
-const intialBooks: Book[] = [
+const initialBooks: Book[] = [
   {id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", featured: true },
     {id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", featured: true },
     {id: 3, title: "1984", author: "George Orwell", featured: true },
 ];
 
 function App() {
-  const [books, setBooks] = useState<Book[]>(intialBooks);
+  const [books, setBooks] = useState<Book[]>(initialBooks);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   // Create or Update a book
     const saveBook = (book: Book) => {
       if (book.id) {
         // Update existing book
-        setBooks(books.map((b) => (b.id ? book : b)));
+        setBooks(books.map((b) => (b.id === book.id ? book : b)));
       } else {
         // Create new book
         const newBook = { ...book, id: books.length + 1 };
